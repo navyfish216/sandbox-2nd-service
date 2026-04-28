@@ -38,4 +38,14 @@ public class SandBox2ndController {
 		return response;
 	}
 	
+	@GetMapping(path = {"/api", "/api/"})
+	public SandBox2ndResponse getApi() throws Exception {
+		
+		log.info(messageSource.getMessage("sandbox.controller.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
+		SandBox2ndResponse response = sandBox2ndService.callApi();
+		log.info(messageSource.getMessage("sandbox.controller.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
+
+		return response;
+	}
+	
 }
