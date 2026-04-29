@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import com.example.demo.sahred.config.ServiceConfig;
 import com.example.demo.sahred.util.ProcessUtility;
+import com.example.demo.sahred.util.ServiceUrlUtility;
 import com.example.demo.second.web.response.Sandbox2ndResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +21,9 @@ public class Sandbox2ndService {
 
 	@Autowired
 	private RestClient restClient;
+	
+	@Autowired
+	private ServiceUrlUtility serviceUrlUtility;
 	
 	@Autowired
 	private ProcessUtility processUtility;
@@ -39,8 +44,7 @@ public class Sandbox2ndService {
 		
 		log.info(messageSource.getMessage("sandbox.service.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		
-		// TODO URL（http://localhost:18081）は共通部品を介して取得する
-		String url = "http://localhost:18081";
+		String url = serviceUrlUtility.getUrl(ServiceConfig.SANDBOX_SERVICE);
 		ResponseEntity<Sandbox2ndResponse> result = restClient.get().uri(url).retrieve().toEntity(Sandbox2ndResponse.class);
 		
 		log.info(messageSource.getMessage("sandbox.service.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
