@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SandBox2ndResponse {
+public class Sandbox2ndResponse {
 	private String message;
 }

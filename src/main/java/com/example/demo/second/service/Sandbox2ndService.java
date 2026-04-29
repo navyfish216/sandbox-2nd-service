@@ -9,14 +9,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 import com.example.demo.sahred.util.ProcessUtility;
-import com.example.demo.second.web.response.SandBox2ndResponse;
+import com.example.demo.second.web.response.Sandbox2ndResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class SandBox2ndService {
+public class Sandbox2ndService {
 
+	@Autowired
+	private RestClient restClient;
+	
 	@Autowired
 	private ProcessUtility processUtility;
 	
@@ -32,16 +35,13 @@ public class SandBox2ndService {
 		return ret;
 	}
 	
-	public SandBox2ndResponse callApi() throws Exception {
+	public Sandbox2ndResponse callApi() throws Exception {
 		
 		log.info(messageSource.getMessage("sandbox.service.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		
-		RestClient restClient = RestClient.create();
-		
-		ResponseEntity<SandBox2ndResponse> result = restClient.get() 
-				  .uri("http://localhost:18081") 
-				  .retrieve() 
-				  .toEntity(SandBox2ndResponse.class);
+		// TODO URL（http://localhost:18081）は共通部品を介して取得する
+		String url = "http://localhost:18081";
+		ResponseEntity<Sandbox2ndResponse> result = restClient.get().uri(url).retrieve().toEntity(Sandbox2ndResponse.class);
 		
 		log.info(messageSource.getMessage("sandbox.service.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		

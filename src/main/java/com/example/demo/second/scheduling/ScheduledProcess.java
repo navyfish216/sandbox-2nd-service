@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
 import com.example.demo.sahred.util.ProcessUtility;
-import com.example.demo.second.web.response.SandBox2ndResponse;
+import com.example.demo.second.config.Sandox2ndConfiguration;
+import com.example.demo.second.web.response.Sandbox2ndResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,22 +20,24 @@ import lombok.extern.slf4j.Slf4j;
 public class ScheduledProcess {
 
 	@Autowired
+	private RestClient restClient;
+	
+	@Autowired
 	private ProcessUtility processUtility;
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private Sandox2ndConfiguration config;
 	
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
     public void fixedRate_withTimeUnit() throws Exception {
 		
     	log.info(messageSource.getMessage("sandbox.process.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		
-		RestClient restClient = RestClient.create();
-		
-		restClient.get() 
-				  .uri("http://localhost:18082/2nd") 
-				  .retrieve() 
-				  .toEntity(SandBox2ndResponse.class);
+    	String url = String.format("http://localhost:%s%s", config.getSelfServerPort(), "/2nd");
+		restClient.get() .uri(url) .retrieve() .toEntity(Sandbox2ndResponse.class);
 		
 		log.info(messageSource.getMessage("sandbox.process.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
     }

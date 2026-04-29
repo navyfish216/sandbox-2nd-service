@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.sahred.util.ProcessUtility;
-import com.example.demo.second.service.SandBox2ndService;
-import com.example.demo.second.web.response.SandBox2ndResponse;
+import com.example.demo.second.service.Sandbox2ndService;
+import com.example.demo.second.web.response.Sandbox2ndResponse;
 
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/2nd")
 @Slf4j
-public class SandBox2ndController {
+public class Sandbox2ndController {
 
 	@Autowired
-	private SandBox2ndService sandBox2ndService;
+	private Sandbox2ndService sandBox2ndService;
 	
 	@Autowired
 	private ProcessUtility processUtility;
@@ -29,20 +29,20 @@ public class SandBox2ndController {
 	private MessageSource messageSource;
 	
 	@GetMapping(path = {"", "/"})
-	public SandBox2ndResponse getString() throws Exception {
+	public Sandbox2ndResponse getString() throws Exception {
 		
 		log.info(messageSource.getMessage("sandbox.controller.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		var response = new SandBox2ndResponse(sandBox2ndService.getString());
+		var response = new Sandbox2ndResponse(sandBox2ndService.getString());
 		log.info(messageSource.getMessage("sandbox.controller.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		
 		return response;
 	}
 	
 	@GetMapping(path = {"/api", "/api/"})
-	public SandBox2ndResponse getApi() throws Exception {
+	public Sandbox2ndResponse getApi() throws Exception {
 		
 		log.info(messageSource.getMessage("sandbox.controller.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		SandBox2ndResponse response = sandBox2ndService.callApi();
+		Sandbox2ndResponse response = sandBox2ndService.callApi();
 		log.info(messageSource.getMessage("sandbox.controller.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 
 		return response;
