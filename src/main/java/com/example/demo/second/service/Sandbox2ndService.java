@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import com.example.demo.sahred.config.ServiceConfig;
+import com.example.demo.sahred.enumeration.ServiceNameCatalog;
 import com.example.demo.sahred.util.ProcessUtility;
 import com.example.demo.sahred.util.ServiceUrlUtility;
 import com.example.demo.second.web.response.Sandbox2ndResponse;
@@ -44,7 +44,7 @@ public class Sandbox2ndService {
 		
 		log.info(messageSource.getMessage("sandbox.service.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		
-		String url = serviceUrlUtility.getUrl(ServiceConfig.SANDBOX_SERVICE);
+		String url = serviceUrlUtility.getUrl(ServiceNameCatalog.SANDBOX_SERVICE);
 		ResponseEntity<Sandbox2ndResponse> result = restClient.get().uri(url).retrieve().toEntity(Sandbox2ndResponse.class);
 		
 		log.info(messageSource.getMessage("sandbox.service.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
