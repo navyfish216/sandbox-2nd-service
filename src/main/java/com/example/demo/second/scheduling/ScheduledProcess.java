@@ -9,8 +9,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
+import com.example.demo.sahred.config.CommonServiceConfiguration;
 import com.example.demo.sahred.util.ProcessUtility;
-import com.example.demo.second.config.Sandox2ndConfiguration;
 import com.example.demo.second.web.response.Sandbox2ndResponse;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +29,7 @@ public class ScheduledProcess {
 	private MessageSource messageSource;
 	
 	@Autowired
-	private Sandox2ndConfiguration config;
+	private CommonServiceConfiguration config;
 	
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
     public void fixedRate_withTimeUnit() throws Exception {
