@@ -44,7 +44,7 @@ public class Sandbox2ndService {
 		
 		log.info(messageSource.getMessage("sandbox.service.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		
-		String url = serviceUrlUtility.getUrl(ServiceNameCatalog.SANDBOX_SERVICE);
+		String url = serviceUrlUtility.getUrl(ServiceNameCatalog.SANDBOX_SERVICE) + "/sleep";
 		ResponseEntity<Sandbox2ndResponse> result = restClient.get().uri(url).retrieve().toEntity(Sandbox2ndResponse.class);
 		
 		log.info(messageSource.getMessage("sandbox.service.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
