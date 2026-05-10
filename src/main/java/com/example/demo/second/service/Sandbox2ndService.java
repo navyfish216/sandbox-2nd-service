@@ -21,34 +21,34 @@ public class Sandbox2ndService {
 
 	@Autowired
 	private RestClient restClient;
-	
+
 	@Autowired
 	private ServiceUrlUtility serviceUrlUtility;
-	
+
 	@Autowired
 	private ProcessUtility processUtility;
-	
+
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	public String getString() throws Exception {
-		
+
 		log.info(messageSource.getMessage("sandbox.service.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		var ret = "This is 2nd service.";
 		log.info(messageSource.getMessage("sandbox.service.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		
+
 		return ret;
 	}
-	
+
 	public Sandbox2ndResponse callApi() throws Exception {
-		
+
 		log.info(messageSource.getMessage("sandbox.service.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		
+
 		String url = serviceUrlUtility.getUrl(ServiceNameCatalog.SANDBOX_SERVICE) + "/sleep";
 		ResponseEntity<Sandbox2ndResponse> result = restClient.get().uri(url).retrieve().toEntity(Sandbox2ndResponse.class);
-		
+
 		log.info(messageSource.getMessage("sandbox.service.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		
+
 		return result.getBody();
 	}
 }

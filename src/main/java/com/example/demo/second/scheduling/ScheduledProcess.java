@@ -21,24 +21,24 @@ public class ScheduledProcess {
 
 	@Autowired
 	private RestClient restClient;
-	
+
 	@Autowired
 	private ProcessUtility processUtility;
-	
+
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	@Autowired
 	private CommonServiceConfiguration config;
-	
-    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
-    public void fixedRate_withTimeUnit() throws Exception {
-		
-    	log.info(messageSource.getMessage("sandbox.process.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		
-    	String url = String.format("http://localhost:%s%s", config.getSelfServerPort(), "/2nd");
-		restClient.get() .uri(url) .retrieve() .toEntity(Sandbox2ndResponse.class);
-		
+
+	@Scheduled(fixedRate = 1, timeUnit = TimeUnit.MINUTES)
+	public void fixedRate_withTimeUnit() throws Exception {
+
+		log.info(messageSource.getMessage("sandbox.process.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
+
+		String url = String.format("http://localhost:%s%s", config.getSelfServerPort(), "/2nd");
+		restClient.get().uri(url).retrieve().toEntity(Sandbox2ndResponse.class);
+
 		log.info(messageSource.getMessage("sandbox.process.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-    }
+	}
 }

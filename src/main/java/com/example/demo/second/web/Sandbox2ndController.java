@@ -21,31 +21,31 @@ public class Sandbox2ndController {
 
 	@Autowired
 	private Sandbox2ndService sandBox2ndService;
-	
+
 	@Autowired
 	private ProcessUtility processUtility;
 
 	@Autowired
 	private MessageSource messageSource;
-	
+
 	@GetMapping(path = {"", "/"})
 	public Sandbox2ndResponse getString() throws Exception {
-		
+
 		log.info(messageSource.getMessage("sandbox.controller.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		var response = new Sandbox2ndResponse(sandBox2ndService.getString());
 		log.info(messageSource.getMessage("sandbox.controller.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
-		
+
 		return response;
 	}
-	
+
 	@GetMapping(path = {"/api", "/api/"})
 	public Sandbox2ndResponse getApi() throws Exception {
-		
+
 		log.info(messageSource.getMessage("sandbox.controller.log.start", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 		Sandbox2ndResponse response = sandBox2ndService.callApi();
 		log.info(messageSource.getMessage("sandbox.controller.log.end", new String[]{processUtility.getProccessName()}, Locale.getDefault()));
 
 		return response;
 	}
-	
+
 }
